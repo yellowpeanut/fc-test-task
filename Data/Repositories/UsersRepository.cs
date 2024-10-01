@@ -1,9 +1,9 @@
-﻿using fc_test_task.Data;
-using fc_test_task.Interfaces.Reposiroties;
-using fc_test_task.Queries.User;
+﻿using FcTestTask.Application.DTO.User.Requests;
+using FcTestTask.Application.Interfaces.Repositories;
+using FcTestTask.Domain.Users.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace fc_test_task.Repositories;
+namespace FcTestTask.Data.Repositories;
 
 public class UsersRepository : IUsersRepository
 {
@@ -26,7 +26,7 @@ public class UsersRepository : IUsersRepository
         var res = await _context.Users.Where(e => e.Id == id).FirstOrDefaultAsync();
         return res;
     }
-    public async Task<IEnumerable<User>?> GetAllAsync(UserFindQuery query)
+    public async Task<IEnumerable<User>?> GetAllAsync(UserFindRequest query)
     {
         var data = _context.Users.AsQueryable();
 

@@ -1,4 +1,4 @@
-﻿namespace fc_test_task.Data.Enums;
+﻿namespace FcTestTask.Data.Enums;
 
 public record Devices
 {

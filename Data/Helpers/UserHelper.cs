@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
-using fc_test_task.Data.Enums;
-using fc_test_task.DTO.User;
-using fc_test_task.Interfaces.Helpers;
+using FcTestTask.Data.Enums;
 using Microsoft.AspNetCore.Mvc;
+using FcTestTask.Domain.Users.Entities;
+using FcTestTask.Application.Interfaces.Helpers;
+using FcTestTask.Application.DTO.User;
 
-namespace fc_test_task.Helpers;
+namespace FcTestTask.Data.Helpers;
 
 public class UserHelper : IUserHelper
 {

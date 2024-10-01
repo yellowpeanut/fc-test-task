@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using fc_test_task.DTO.User;
+using FcTestTask.Application.DTO.User;
+using FcTestTask.Domain.Users.Entities;
 
-namespace fc_test_task.Data;
+namespace FcTestTask.Application.Mappers;
 
 public class AppMappingProfile : Profile
 {

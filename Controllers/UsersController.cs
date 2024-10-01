@@ -1,11 +1,12 @@
-﻿using fc_test_task.Data.Enums;
-using fc_test_task.Interfaces.Helpers;
-using fc_test_task.Interfaces.Reposiroties;
-using fc_test_task.Queries.User;
+﻿using FcTestTask.Data.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using FcTestTask.Domain.Users.Entities;
+using FcTestTask.Application.Interfaces.Helpers;
+using FcTestTask.Application.Interfaces.Repositories;
+using FcTestTask.Application.DTO.User.Requests;
 
-namespace fc_test_task.Controllers
+namespace FcTestTask.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -22,7 +23,7 @@ namespace fc_test_task.Controllers
             _userHelper = userHelper;
         }
 
-        [HttpGet("id:int")]
+        [HttpGet("id")]
         public async Task<IActionResult> GetAsync([Required] int id)
         {
             var res = await _usersRepository.GetByIdAsync(id);
@@ -35,7 +36,7 @@ namespace fc_test_task.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AllAsync([FromQuery] UserFindQuery query)
+        public async Task<IActionResult> AllAsync([FromQuery] UserFindRequest query)
         {
             var res = await _usersRepository.GetAllAsync(query);
 
@@ -50,7 +51,7 @@ namespace fc_test_task.Controllers
         public async Task<IActionResult> CreateAsync([FromBody] User user)
         {
             string? device = Request.Headers["x-Device"];
-            if(!Devices.ListAll.Contains(device))
+            if (!Devices.ListAll.Contains(device))
             {
                 return BadRequest("Specified x-Device is not valid");
             }
@@ -60,7 +61,7 @@ namespace fc_test_task.Controllers
                 return BadRequest(validationRes);
             }
             var res = await _usersRepository.AddAsync(user);
-            if(res == null || res.Id == default)
+            if (res == null || res.Id == default)
             {
                 return StatusCode(500);
             }

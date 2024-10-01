@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using fc_test_task.Data;
-using fc_test_task.Interfaces.Reposiroties;
-using fc_test_task.Repositories;
-using fc_test_task.Interfaces.Helpers;
-using fc_test_task.Helpers;
+using FcTestTask.Data;
+using FcTestTask.Application.Interfaces.Helpers;
+using FcTestTask.Application.Interfaces.Repositories;
+using FcTestTask.Data.Repositories;
+using FcTestTask.Data.Helpers;
+using FcTestTask.Application.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 

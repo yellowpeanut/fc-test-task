@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace fc_test_task.Queries.User;
+namespace FcTestTask.Application.DTO.User.Requests;
 
-public class UserFindQuery
+public class UserFindRequest
 {
     public string? LastName { get; set; }
     public string? FirstName { get; set; }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace fc_test_task.DTO.User;
+namespace FcTestTask.Application.DTO.User;
 
 public class UserMobileDTO
 {

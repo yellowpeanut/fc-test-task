@@ -7,4 +7,5 @@ public interface IUsersRepository
     Task<User?> AddAsync(User user);
     Task<IEnumerable<User>?> GetAllAsync(UserFindQuery query);
     Task<User?> GetByIdAsync(int id);
+    Task<bool> Exists(User user);
 }

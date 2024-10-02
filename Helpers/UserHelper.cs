@@ -42,4 +42,18 @@ public class UserHelper : IUserHelper
 
         return new BadRequestResult();
     }
+
+    public UserDTO MapToUserDeviceDTO(UserDTO userDTO, string device)
+    {
+        switch (device)
+        {
+            case Devices.MAIL:
+                return new UserMailDTO(userDTO);
+            case Devices.MOBILE:
+                return new UserMobileDTO(userDTO);
+            case Devices.WEB:
+                return new UserWebDTO(userDTO);
+        }
+        return userDTO;
+    }
 }

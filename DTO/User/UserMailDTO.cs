@@ -1,11 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Net.Mail;
 
 namespace fc_test_task.DTO.User;
 
-public class UserMailDTO
+public class UserMailDTO : UserDTO
 {
-    [MaxLength(32)]
-    public required string FirstName { get; set; }
-    [EmailAddress]
-    public required string Email { get; set; }
+    public UserMailDTO(UserDTO userDTO) : base(userDTO)
+    {
+    }
+
+    public override bool IsValid()
+    {
+        if (String.IsNullOrEmpty(FirstName) || FirstName.Length > 32)
+        {
+            return false;
+        }
+        if (String.IsNullOrEmpty(Email) || !MailAddress.TryCreate(Email, out _))
+        {
+            return false;
+        }
+        return true;
+    }
 }

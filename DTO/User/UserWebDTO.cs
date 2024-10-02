@@ -1,21 +1,41 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace fc_test_task.DTO.User;
 
-namespace fc_test_task.DTO.User;
-
-public class UserWebDTO
+public class UserWebDTO : UserDTO
 {
-    [MaxLength(32)]
-    public required string LastName { get; set; }
-    [MaxLength(32)]
-    public required string FirstName { get; set; }
-    [MaxLength(32)]
-    public required string MiddleName { get; set; }
+    public UserWebDTO(UserDTO userDTO) : base(userDTO)
+    {
+    }
 
-    public required DateOnly Birthday { get; set; }
-    [DisplayFormat(DataFormatString = "#### ######")]
-    public required string Passport { get; set; }
-    public required string BirthAddress { get; set; }
-    [DisplayFormat(DataFormatString = "7##########")]
-    public required string PhoneNumber { get; set; }
-    public required string RegistrationAddress { get; set; }
+    public override bool IsValid()
+    {
+        if (String.IsNullOrEmpty(FirstName) || FirstName.Length > 32)
+        {
+            return false;
+        }
+        if (String.IsNullOrEmpty(LastName) || LastName.Length > 32)
+        {
+            return false;
+        }
+        if (String.IsNullOrEmpty(MiddleName) || MiddleName.Length > 32)
+        {
+            return false;
+        }
+        if (String.IsNullOrEmpty(Passport) || Passport.Length != 11)
+        {
+            return false;
+        }
+        if (String.IsNullOrEmpty(BirthAddress))
+        {
+            return false;
+        }
+        if (String.IsNullOrEmpty(PhoneNumber) || PhoneNumber.Length != 11 || !PhoneNumber.StartsWith('7'))
+        {
+            return false;
+        }
+        if (String.IsNullOrEmpty(RegistrationAddress))
+        {
+            return false;
+        }
+        return true;
+    }
 }

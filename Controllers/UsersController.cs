@@ -1,4 +1,5 @@
-﻿using fc_test_task.Data.Enums;
+﻿using fc_test_task.DTO.User;
+using fc_test_task.FilterAttributes;
 using fc_test_task.Interfaces.Helpers;
 using fc_test_task.Interfaces.Reposiroties;
 using fc_test_task.Queries.User;
@@ -22,7 +23,7 @@ namespace fc_test_task.Controllers
             _userHelper = userHelper;
         }
 
-        [HttpGet("id:int")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync([Required] int id)
         {
             var res = await _usersRepository.GetByIdAsync(id);
@@ -47,20 +48,21 @@ namespace fc_test_task.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] User user)
+        [HasDeviceHeader]
+        public async Task<IActionResult> CreateAsync([FromBody] UserDTO userDTO)
         {
-            string? device = Request.Headers["x-Device"];
-            if(!Devices.ListAll.Contains(device))
+            string device = HttpContext.Request.Headers["x-Device"]!;
+            var newUserDTO = _userHelper.MapToUserDeviceDTO(userDTO, device);
+            if (!newUserDTO.IsValid())
             {
-                return BadRequest("Specified x-Device is not valid");
+                return BadRequest();
             }
-            var validationRes = _userHelper.ValidateDataFromDevice(user, device);
-            if (!validationRes.GetType().IsEquivalentTo(typeof(OkResult)))
+            if (await _usersRepository.Exists(userDTO.ToUser()))
             {
-                return BadRequest(validationRes);
+                return BadRequest("User already exists");
             }
-            var res = await _usersRepository.AddAsync(user);
-            if(res == null || res.Id == default)
+            var res = await _usersRepository.AddAsync(newUserDTO.ToUser());
+            if (res == null || res.Id == default)
             {
                 return StatusCode(500);
             }

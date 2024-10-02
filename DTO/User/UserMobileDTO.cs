@@ -1,9 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace fc_test_task.DTO.User;
 
-namespace fc_test_task.DTO.User;
-
-public class UserMobileDTO
+public class UserMobileDTO : UserDTO
 {
-    [DisplayFormat(DataFormatString = "7##########")]
-    public required string PhoneNumber { get; set; }
+    public UserMobileDTO(UserDTO userDTO) : base(userDTO)
+    {
+    }
+
+    public override bool IsValid()
+    {
+        if (String.IsNullOrEmpty(PhoneNumber) || PhoneNumber.Length != 11 || !PhoneNumber.StartsWith('7'))
+        {
+            return false;
+        }
+        return true;
+    }
 }

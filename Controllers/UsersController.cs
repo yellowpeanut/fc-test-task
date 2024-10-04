@@ -5,6 +5,8 @@ using FcTestTask.Domain.Users.Entities;
 using FcTestTask.Application.Interfaces.Helpers;
 using FcTestTask.Application.Interfaces.Repositories;
 using FcTestTask.Application.DTO.User.Requests;
+using FcTestTask.Application.FilterAttributes;
+using FcTestTask.Application.DTO.User;
 
 namespace FcTestTask.Controllers
 {

@@ -54,5 +54,13 @@ public class UsersRepository : IUsersRepository
         return await data.ToListAsync();
     }
 
+    public async Task<bool> Exists(User user)
+    {
+        var data = _context.Users.AsQueryable();
+        // assuming email is not null
+        data.Where(e => e.Email == user.Email);
 
+        var res = await data.FirstOrDefaultAsync();
+        return res != null;
+    }
 }

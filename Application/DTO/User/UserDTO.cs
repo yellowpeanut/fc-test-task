@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FcTestTask.DTO.User;
+namespace FcTestTask.Application.DTO.User;
 
 public class UserDTO
 {

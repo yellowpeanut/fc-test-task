@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\fc-practice\fc-test-task.csproj" />
+    <ProjectReference Include="..\fc-test-task\fc-test-task.csproj" />
   </ItemGroup>
 
   <ItemGroup>

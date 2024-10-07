@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FcTestTask.Domain.Users.ValueObjects;
+using System.ComponentModel.DataAnnotations;
 
-namespace fc_test_task;
+namespace FcTestTask.Domain.Users.Entities;
 
 public class User
 {

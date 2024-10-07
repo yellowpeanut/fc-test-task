@@ -35,6 +35,19 @@ public class UserDTO
         RegistrationAddress = other.RegistrationAddress;
         ResidentialAddress = other.ResidentialAddress;
     }
+    public UserDTO(Domain.Users.Entities.User user)
+    {
+        LastName = user.LastName;
+        FirstName = user.FirstName;
+        MiddleName = user.MiddleName;
+        Birthday = user.Birthday;
+        Passport = user.Passport;
+        BirthAddress = user.BirthAddress;
+        PhoneNumber = user.PhoneNumber;
+        Email = user.Email;
+        RegistrationAddress = user.RegistrationAddress;
+        ResidentialAddress = user.ResidentialAddress;
+    }
     public virtual bool IsValid()
     {
         return false;

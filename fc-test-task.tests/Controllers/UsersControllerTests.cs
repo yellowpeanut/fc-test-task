@@ -5,6 +5,7 @@ using FcTestTask.Domain.Users.Entities;
 using FcTestTask.Tests.InitialData.User;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http.Json;
+using FcTestTask.Application.DTO.User;
 
 namespace FcTestTask.Tests.Controllers;
 
@@ -85,6 +86,7 @@ public class UsersControllerTests
     public async Task CreateTest()
     {
         var user = _initUsers.First();
+        var userDTO = new UserDTO(user);
 
         Assert.Multiple(async () =>
         {
@@ -92,7 +94,7 @@ public class UsersControllerTests
             {
                 _client.DefaultRequestHeaders.Add("x-Device", device);
 
-                var response = await _client.PostAsJsonAsync(route, user);
+                var response = await _client.PostAsJsonAsync(route, userDTO);
                 response.EnsureSuccessStatusCode();
 
                 var resData = await response.Content.ReadFromJsonAsync<User>();

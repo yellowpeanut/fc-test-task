@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  fctesttask-sqlserver:
+    container_name: fctesttask-sqlserver-container
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Changeme1*
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+  fctesttask:
+    container_name: fctesttask-container
+    image: yellowpeanut/fctesttask
+    environment:
+      - MSSQL_SA_USER=sa
+      - MSSQL_SA_PASSWORD=Changeme1*
+    ports:
+      - "8080:8080"
+    depends_on:
+      - fctesttask-sqlserver 

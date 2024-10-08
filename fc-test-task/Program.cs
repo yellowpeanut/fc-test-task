@@ -12,7 +12,15 @@ var connectionString = builder.Configuration.GetConnectionString("ApplicationDbC
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationContext>(options =>
-    options.UseSqlServer(connectionString));
+    {
+        if (!builder.Environment.IsDevelopment())
+        {
+            var user = Environment.GetEnvironmentVariable("MSSQL_SA_USER");
+            var password = Environment.GetEnvironmentVariable("MSSQL_SA_PASSWORD");
+            connectionString = string.Format(connectionString, user, password);
+        }
+        options.UseSqlServer(connectionString);
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAutoMapper(typeof(AppMappingProfile));
 
@@ -35,4 +43,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+    db.Database.Migrate();
+}
 app.Run();
